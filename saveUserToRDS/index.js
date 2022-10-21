@@ -8,9 +8,8 @@ const config = {
     database: process.env.RDS_DATABASE
 };
 
-const connection = await mysql.createConnection(config);
-
 exports.handler = async (event) => {
+    const connection = await mysql.createConnection(config);
 
     const { email, name } = event.request.userAttributes;
     const sql = `INSERT INTO owners(email, username) VALUES('${email}', '${name}')`;
