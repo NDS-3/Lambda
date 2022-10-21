@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/NDS-3/Lambda#readme",
   "dependencies": {
-    "mysql": "^2.18.1"
+    "mysql2": "^2.3.3"
   }
 }
