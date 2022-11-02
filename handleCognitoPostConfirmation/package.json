@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/NDS-3/Lambda#readme",
   "dependencies": {
+    "@aws-sdk/client-sns": "^3.201.0",
     "mysql2": "^2.3.3"
   }
 }
