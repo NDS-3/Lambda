@@ -14,7 +14,9 @@ const saveCognitoUserToRDS = async (event) => {
     const connection = await mysql.createConnection(config);
 
     const { email, name } = event.request.userAttributes;
-    const sql = `INSERT INTO owners(email, username) VALUES('${email}', '${name}')`;
+    const username = event.userName;
+    
+    const sql = `INSERT INTO owners(email, username, cognito_id) VALUES('${email}', '${name}', '${username}')`;
 
     await connection.execute(sql);
 }
@@ -22,7 +24,7 @@ const saveCognitoUserToRDS = async (event) => {
 const getSubscritionParams = (event) => {
     return {
         Protocol: "email",
-        TopicArn: process.env.HALLOWEEN_TOPIC_ARN,
+        TopicArn: process.env._TOPIC_ARN,
         Endpoint: event.request.userAttributes.email,
     }
 }
@@ -36,13 +38,11 @@ const createSubscription = async (params) => {
   }
 };
 
-exports.handler = async (event) => {
+exports.handler = async (event, context, callback) => {
     await saveCognitoUserToRDS(event);
     
     const params = getSubscritionParams(event);
     await createSubscription(params)
     
-    return {
-        "message": "Completed"
-    }
+    return event;
 };
