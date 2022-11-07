@@ -1,7 +1,6 @@
 const axios = require("axios");
 const zlib = require("zlib");
-const MONITORING_CHANNEL =
-  "https://hooks.slack.com/services/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";
+const MONITORING_CHANNEL = process.env.SLACK_URL;
 
 const createButtonURL = (logGroupName, logStreamName) => {
   return `https://${process.env.AWS_REGION}.console.aws.amazon.com/cloudwatch/home?region=${process.env.AWS_REGION}#logsV2:log-groups/log-group/${logGroupName.replace(
@@ -17,7 +16,8 @@ const createButtonURL = (logGroupName, logStreamName) => {
 const createMessage = (cloudWatchEvents) => {
   console.log(cloudWatchEvents);
   const { logGroup, logStream, logEvents } = cloudWatchEvents;
-const currentDate = new Date();
+let currentDate = new Date();
+currentDate.setHours(currentDate.getHours() + 9);
 const logGroupList = logGroup.split('/');
 
   return {
@@ -86,8 +86,8 @@ exports.handler = async (event) => {
   if (event.awslogs && event.awslogs.data) {
     const payload = Buffer.from(event.awslogs.data, "base64");
 
-    const logevents = JSON.parse(zlib.unzipSync(payload).toString()).logEvents;
-    const message = createMessage(logevents);
+    const cloudWatchEvents = JSON.parse(zlib.unzipSync(payload));
+    const message = createMessage(cloudWatchEvents);
     await sendMessage(message);
   }
 
