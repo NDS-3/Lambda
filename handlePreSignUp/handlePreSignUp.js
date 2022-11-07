@@ -1,4 +1,4 @@
-const baseDate = new Date(2022, 10, 4);
+const baseDate = new Date(2022, 11 -1 , 11);
 
 exports.handler = (event, context, callback) => {
     const currentDate = new Date()
@@ -8,7 +8,7 @@ exports.handler = (event, context, callback) => {
         const message = "가입할 수 있는 시간이 지났습니다";
         console.log(message);
         const error = new Error(message);
-        // Return error to Amazon Cognito
+
         callback(error, event);
     }
     
