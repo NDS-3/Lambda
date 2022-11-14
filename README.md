@@ -37,6 +37,7 @@ Cognito Lambda 사전 가입 트리거를 처리하는 함수
 
 ## 3. sendAlarmFromSNSToSlack
 ECS 클러스터의 CPU 사용량 경보를 Slack으로 전송하는 함수
+![sns로그](https://user-images.githubusercontent.com/64261939/201787468-2efd8b12-a614-4d19-89de-5966b966dc39.png)
 
 - 기능
   - ECS Cluster의 CPU 사용량이 60%를 넘어갈 때 발생하는 경보를 Slack으로 전송
@@ -45,6 +46,7 @@ ECS 클러스터의 CPU 사용량 경보를 Slack으로 전송하는 함수
 
 ## 4. sendCloudWatchAlarm
 앱 빌드 실패 알람을 Slack으로 전송하는 함수
+![로그그룹](https://user-images.githubusercontent.com/64261939/201787508-f1251da3-7539-4dcb-aa2c-722183dd7c2b.png)
 
 - 기능
   - CodeBuild에서 빌드가 실패하면 빌드 실패 메시지를 Slack으로 전송
